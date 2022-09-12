@@ -4,6 +4,7 @@ import Home from "./screens/Home";
 import { useFonts } from "expo-font";
 import SearchP1 from "./screens/SearchP1";
 import YourTraining from './screens/YourTraining'
+import SearchP2 from "./screens/SearchP2";
 
 
 const Stack = createStackNavigator()
@@ -33,6 +34,7 @@ export default function App() {
         <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName="Home">
           <Stack.Screen name="Home" component={Home} />
           <Stack.Screen name="SearchP1" component={SearchP1} />
+          <Stack.Screen name="SearchP2" component={SearchP2} />
           <Stack.Screen name="YourTraining" component={YourTraining} />
         </Stack.Navigator>
       </NavigationContainer>

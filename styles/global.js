@@ -7,7 +7,7 @@ export const globalStyles = StyleSheet.create({
         backgroundColor: COLORS.red,
         fontSize: 20,
         textAlign: "center",
-        letterSpacing: 7,
+        letterSpacing: 5,
         paddingVertical: 7
     }
 })
