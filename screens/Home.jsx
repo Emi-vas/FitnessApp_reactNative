@@ -1,4 +1,5 @@
 import { View, Text } from 'react-native';
+import NavigationBar from '../components/NavigationBar';
 import FocusedStatusBar from '../components/StatusBar';
 
 const Home = () => {
@@ -8,6 +9,7 @@ const Home = () => {
             <View>
                 <Text>Home</Text>
             </View>
+            <NavigationBar />
         </>
     );
 };
