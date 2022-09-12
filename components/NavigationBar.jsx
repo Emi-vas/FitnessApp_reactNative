@@ -3,11 +3,15 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import { Feather } from '@expo/vector-icons'; 
 import { Entypo } from '@expo/vector-icons'; 
 import { MaterialIcons } from '@expo/vector-icons'; 
+import { useNavigation } from '@react-navigation/native';
+
 
 import { COLORS } from '../assets/constants';
 
 
-const NavigationBar = () => {
+const NavigationBar = ({ page }) => {
+    const navigation = useNavigation()
+
     return (
         <View
             style={{
@@ -20,18 +24,27 @@ const NavigationBar = () => {
                 padding: 7
             }}
         >
-            <TouchableOpacity style={{ alignItems: 'center', width: 70 }}>
-                 <Entypo name="home" size={30} color="white" />
+            <TouchableOpacity 
+                style={{ alignItems: 'center', width: 70 }}
+                onPress={()=> navigation.navigate("Home")}
+            >
+                 <Entypo name="home" size={30} color={page == "home" ? COLORS.orangeLight : "white"} />
                  <Text style={{color: "white"}} >Home</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity style={{ alignItems: 'center' }}>
-                 <Feather name="search" size={30} color="white" />
+            <TouchableOpacity 
+                style={{ alignItems: 'center' }}
+                onPress={()=> navigation.navigate("SearchP1")}
+            >
+                 <Feather name="search" size={30} color={page == "search" ? COLORS.orangeLight : "white"} />
                  <Text style={{color: "white"}} >Search</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity style={{ alignItems: 'center' }}>
-                <MaterialIcons name="fitness-center" size={30} color="white" />
+            <TouchableOpacity 
+                style={{ alignItems: 'center' }}
+                onPress={()=> navigation.navigate("YourTraining")}
+            >
+                <MaterialIcons name="fitness-center" size={30} color={page == "training" ? COLORS.orangeLight : "white"}/>
                 <Text style={{color: "white"}} >Your Training</Text>
             </TouchableOpacity>
         </View>

@@ -2,6 +2,8 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer, DefaultTheme } from "@react-navigation/native";
 import Home from "./screens/Home";
 import { useFonts } from "expo-font";
+import SearchP1 from "./screens/SearchP1";
+import YourTraining from './screens/YourTraining'
 
 
 const Stack = createStackNavigator()
@@ -30,6 +32,8 @@ export default function App() {
       <NavigationContainer theme={theme}>
         <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName="Home">
           <Stack.Screen name="Home" component={Home} />
+          <Stack.Screen name="SearchP1" component={SearchP1} />
+          <Stack.Screen name="YourTraining" component={YourTraining} />
         </Stack.Navigator>
       </NavigationContainer>
     );

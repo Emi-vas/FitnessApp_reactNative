@@ -1,26 +1,19 @@
+import { useNavigation } from '@react-navigation/native';
 import { View, Text, Image, ImageBackground, ScrollView, Button, StyleSheet } from 'react-native';
 import { COLORS } from '../assets/constants';
 import NavigationBar from '../components/NavigationBar';
 import FocusedStatusBar from '../components/StatusBar';
+import { globalStyles } from '../styles/global';
 
 const Home = () => {
+    const navigation = useNavigation()
+
     return (
         <>
             <FocusedStatusBar />
 
             <ScrollView style={{ marginBottom: 63 }}>
-                <Text 
-                    style={{ 
-                        color: "white", 
-                        backgroundColor: COLORS.red,
-                        fontSize: 25,
-                        textAlign: "center"
-                    }}
-                >
-                    Fitness Club
-                </Text>
-
-
+                <Text style={globalStyles.mainTitle}> Fitness Club </Text>
 
                 <Image 
                     source={require('../assets/img/banner.png')}
@@ -32,12 +25,14 @@ const Home = () => {
                     style={styles.bloc}
                 >
                     <View style={{ width: "45%" }}>
-                        <Button title="Search for an exercices" color={COLORS.red}/>
+                        <Button title="Search for an exercices" color={COLORS.red}
+                            onPress={()=> navigation.navigate("SearchP1")}
+                        />
                     </View>
 
                     <View style={{ width: "45%" }}>
                         <Text style={styles.text}>
-                            In a bank of 1327 exercises !
+                            In a bank of <Text style={{ fontWeight: "bold", fontSize: 17 }}>1327</Text> exercises !
                         </Text>
                     </View>
 
@@ -57,7 +52,9 @@ const Home = () => {
                     </View>
 
                     <View style={{ width: "45%" }}>
-                        <Button title="Your training list" color={COLORS.red}/>
+                        <Button title="Your training list" color={COLORS.red} 
+                             onPress={()=> navigation.navigate("YourTraining")}
+                        />
                     </View>
                 </View>
 
@@ -76,7 +73,7 @@ const Home = () => {
                 </View>
             </ScrollView>
 
-            <NavigationBar />
+            <NavigationBar  page="home"/>
         </>
     );
 };
