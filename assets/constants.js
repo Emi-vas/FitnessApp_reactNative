@@ -1,5 +1,7 @@
 export const COLORS = {
     orangeLight: "#FFDD7E",
     red: "#c33030",
-    black: "#303030"
+    reLight: "#c3303051",
+    black: "#575757",
+    gray: "#dfdfdf"
 }
