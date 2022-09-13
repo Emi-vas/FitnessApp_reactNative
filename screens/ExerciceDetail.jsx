@@ -1,20 +1,45 @@
 import FocusedStatusBar from "../components/StatusBar";
 import NavigationBar from "../components/NavigationBar";
-import { View, Text, Image, StyleSheet, ScrollView, Button } from "react-native";
+import { View, Text, Image, StyleSheet, ScrollView, Button, FlatList } from "react-native";
 import { globalStyles } from "../styles/global";
 import { COLORS } from "../assets/constants";
+import { Data } from "../assets/data/data";
+import ExerciceCard from "../components/ExerciceCard";
+import { useEffect, useRef } from "react";
 
 const ExerciceDetail = ({ route }) => {
+    const ref = useRef()
+
     const {data} = route.params
+    const similarExercises = Data.filter(item => (
+        item.bodyPart.includes(data.bodyPart) &&
+        item.equipment.includes(data.equipment) &&
+        item.name != data.name
+    ))
+
+    const listInfos = [
+        {
+            title : data.bodyPart,
+            url: require('../assets/img/body-part.png')
+        },
+        {
+            title : data.equipment,
+            url: require('../assets/img/equipment.png')
+        },
+        {
+            title : data.target,
+            url: require('../assets/img/target.png')
+        },
+    ]
 
     return (
         <>
             <FocusedStatusBar />
             <View>
-                <Text style={ globalStyles.mainTitle }>{data.name}</Text>
+                <Text style={ globalStyles.mainTitle2 }>{data.name}</Text>
             </View>
 
-            <ScrollView style={{ marginBottom: 60 }}>
+            <ScrollView ref={ref} style={{ marginBottom: 60 }}>
                 <Image 
                     source={{uri: data.gifUrl}}
                     style={{
@@ -37,44 +62,50 @@ const ExerciceDetail = ({ route }) => {
                 </View>
 
                 <View style={{ alignItems: 'center', marginVertical: 10 }}>
-                    <Button title="add to your list" color={COLORS.red} />
+                    <Button title="add to your list"  />
                 </View>
 
                 <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-around' }}>
-                    <View
-                        style={styles.orangeBloc}
-                    >
-                        <Image 
-                            source={require('../assets/img/body-part.png')}
-                            style={{ width: 40, height: 40 }}
-                        />
-                        <Text style={{ color: COLORS.red}}>{data.bodyPart}</Text>
-                    </View>
 
-                    <View
-                        style={styles.orangeBloc}
-                    >
-                        <Image 
-                            source={require('../assets/img/equipment.png')}
-                            style={{ width: 40, height: 40 }}
-                        />
-                        <Text style={{ color: COLORS.red}}>{data.equipment}</Text>
-                    </View>
-
-                    <View
-                        style={styles.orangeBloc}
-                    >
-                        <Image 
-                            source={require('../assets/img/target.png')}
-                            style={{ width: 40, height: 40 }}
-                        />
-                        <Text style={{ color: COLORS.red}}>{data.target}</Text>
-                    </View>
+                    {
+                        listInfos.map((info, index) => (
+                            <View
+                                style={styles.orangeBloc}
+                                key={index}
+                            >
+                                <Image 
+                                    source={info.url}
+                                    style={{ width: 40, height: 40 }}
+                                />
+                                <Text style={{ color: COLORS.red}}>{info.title}</Text>
+                            </View>
+                        ))
+                    }
                 </View>
-
-
+                
+                <View
+                    style={{
+                        backgroundColor: COLORS.orangeLight,
+                        marginTop: 30
+                    }}
+                >
+                    <Text
+                        style={{
+                            fontSize: 20,
+                            color: COLORS.red,
+                            backgroundColor: 'white',
+                            paddingLeft: 20
+                        }}
+                    >Similar Exercises :</Text>
+                {
+                    similarExercises
+                    .slice(0, 5)
+                    .map((exercises, index) => <ExerciceCard data={exercises} key={index} goToTopPage={() => {ref.current.scrollTo({x:0, y:0, animated:true})}} />)
+                }
+                </View>
             </ScrollView>
-        
+                    
+
             <NavigationBar page="search" />
         </>
     );

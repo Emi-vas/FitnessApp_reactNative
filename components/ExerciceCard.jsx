@@ -3,7 +3,7 @@ import React from 'react';
 import { View, Text, Image, Button } from 'react-native';
 import { COLORS } from '../assets/constants';
 
-const ExerciceCard = ({ data }) => {
+const ExerciceCard = ({ data, goToTopPage }) => {
     const navigation = useNavigation()
 
     return (
@@ -58,7 +58,10 @@ const ExerciceCard = ({ data }) => {
                     <Button 
                         title='View Details' 
                         color={COLORS.red}
-                        onPress={() => navigation.navigate('ExerciceDetail', {data})}
+                        onPress={() => {
+                            navigation.navigate('ExerciceDetail', {data})
+                            goToTopPage()
+                        }}
                     />
                 </View>
             </View>

@@ -66,7 +66,7 @@ const SearchP2 = ({ route }) => {
                     data={listExercises}
                     showsVerticalScrollIndicator={false}
                     keyExtractor={(item) => item.id}
-                    renderItem={({ item }) => <ExerciceCard data={item}/>}
+                    renderItem={({ item }) => <ExerciceCard data={item} goToTopPage={()=>{}}/>}
                 />
            </View>
 
