@@ -43,13 +43,22 @@ const ExerciceDetail = ({ route }) => {
             console.log("dataB")
             await AsyncStorage.setItem('yourTrainingList', dataB) 
         } else {
+            //If there is aleready a list in storage
             yourTrainingList = JSON.parse(yourTrainingList)
             
-            let newList = [data, ...yourTrainingList]
-            console.log(newList)
-            newList = JSON.stringify(newList)
-            await AsyncStorage.setItem('yourTrainingList', newList) 
-            
+            let isPresent = false
+            yourTrainingList.forEach((item) => {
+                if(item.id == data.id){
+                    isPresent = true
+                }
+            })
+
+            if(!isPresent){
+                let newList = [data, ...yourTrainingList]
+                console.log(newList)
+                newList = JSON.stringify(newList)
+                await AsyncStorage.setItem('yourTrainingList', newList) 
+            }
         }
         navigation.navigate("YourTraining")
     }
