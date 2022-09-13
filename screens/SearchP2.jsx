@@ -3,7 +3,6 @@ import { View, TextInput, FlatList } from 'react-native';
 import NavigationBar from '../components/NavigationBar';
 import FocusedStatusBar from '../components/StatusBar';
 
-import { globalStyles } from '../styles/global'
 import { Data } from '../assets/data/data'
 import ExerciceCard from '../components/ExerciceCard';
 import { COLORS } from '../assets/constants';
@@ -11,7 +10,7 @@ import { COLORS } from '../assets/constants';
 const SearchP2 = ({ route }) => {
     const { name } = route.params
 
-    const [listExercises, setListExercises] = useState(Data)
+    const [listExercises, setListExercises] = useState([])
     const [padding, setPadding] = useState(100)
     const [searchValue, setSearchValue] = useState('')
 
@@ -23,15 +22,17 @@ const SearchP2 = ({ route }) => {
     }, [])
 
     useEffect(() => {
-        const listFiltred = Data.filter((item) => (
-            item.bodyPart.includes(searchValue) ||
-            item.equipment.includes(searchValue) ||
-            item.name.includes(searchValue) ||
-            item.target.includes(searchValue)
-        ))
-        setListExercises(listFiltred)
+        if(listExercises[0]) {
+            const listFiltred = listExercises.filter((item) => (
+                item.bodyPart.includes(searchValue) ||
+                item.equipment.includes(searchValue) ||
+                item.name.includes(searchValue) ||
+                item.target.includes(searchValue)
+            ))
+            setListExercises(listFiltred)
+        }
     }, [searchValue])
-    
+
 
     return (
         <>

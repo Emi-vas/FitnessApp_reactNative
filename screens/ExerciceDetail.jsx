@@ -1,14 +1,16 @@
 import FocusedStatusBar from "../components/StatusBar";
 import NavigationBar from "../components/NavigationBar";
-import { View, Text, Image, StyleSheet, ScrollView, Button, FlatList } from "react-native";
+import { View, Text, Image, StyleSheet, ScrollView, Button, FlatList, AsyncStorage } from "react-native";
 import { globalStyles } from "../styles/global";
 import { COLORS } from "../assets/constants";
 import { Data } from "../assets/data/data";
 import ExerciceCard from "../components/ExerciceCard";
 import { useEffect, useRef } from "react";
+import { useNavigation } from "@react-navigation/native";
 
 const ExerciceDetail = ({ route }) => {
     const ref = useRef()
+    const navigation = useNavigation()
 
     const {data} = route.params
     const similarExercises = Data.filter(item => (
@@ -31,6 +33,26 @@ const ExerciceDetail = ({ route }) => {
             url: require('../assets/img/target.png')
         },
     ]
+
+    const addToTrainingList = async () => {
+        let yourTrainingList = await AsyncStorage.getItem('yourTrainingList')
+
+        if(yourTrainingList == null) {
+            let dataB = [data]
+            dataB = JSON.stringify(dataB)
+            console.log("dataB")
+            await AsyncStorage.setItem('yourTrainingList', dataB) 
+        } else {
+            yourTrainingList = JSON.parse(yourTrainingList)
+            
+            let newList = [data, ...yourTrainingList]
+            console.log(newList)
+            newList = JSON.stringify(newList)
+            await AsyncStorage.setItem('yourTrainingList', newList) 
+            
+        }
+        navigation.navigate("YourTraining")
+    }
 
     return (
         <>
@@ -62,7 +84,10 @@ const ExerciceDetail = ({ route }) => {
                 </View>
 
                 <View style={{ alignItems: 'center', marginVertical: 10 }}>
-                    <Button title="add to your list"  />
+                    <Button 
+                        title="add to your list"  
+                        onPress={addToTrainingList}
+                    />
                 </View>
 
                 <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-around' }}>
