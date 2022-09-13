@@ -1,8 +1,11 @@
+import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { View, Text, Image, Button } from 'react-native';
 import { COLORS } from '../assets/constants';
 
 const ExerciceCard = ({ data }) => {
+    const navigation = useNavigation()
+
     return (
         <View
             style={{
@@ -52,7 +55,11 @@ const ExerciceCard = ({ data }) => {
                 </Text>
 
                 <View style={{ alignSelf: "center" }}>
-                    <Button title='View Details' color={COLORS.red}/>
+                    <Button 
+                        title='View Details' 
+                        color={COLORS.red}
+                        onPress={() => navigation.navigate('ExerciceDetail', {data})}
+                    />
                 </View>
             </View>
         </View>

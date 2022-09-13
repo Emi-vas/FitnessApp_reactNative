@@ -7,6 +7,7 @@ import YourTraining from './screens/YourTraining'
 import SearchP2 from "./screens/SearchP2";
 import { useEffect, useState } from 'react';
 import { Keyboard } from "react-native";
+import ExerciceDetail from "./screens/ExerciceDetail";
 
 const Stack = createStackNavigator()
 
@@ -41,6 +42,7 @@ export default function App() {
           <Stack.Screen name="SearchP1" component={SearchP1} />
           <Stack.Screen name="SearchP2" component={SearchP2} />
           <Stack.Screen name="YourTraining" component={YourTraining} />
+          <Stack.Screen name="ExerciceDetail" component={ExerciceDetail} />
         </Stack.Navigator>
       </NavigationContainer>
     );
