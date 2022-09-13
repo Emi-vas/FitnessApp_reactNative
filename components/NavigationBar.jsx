@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, Image } from 'react-native';
+import { View, Text, TouchableOpacity, Image, Keyboard } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { Feather } from '@expo/vector-icons'; 
 import { Entypo } from '@expo/vector-icons'; 
@@ -7,10 +7,44 @@ import { useNavigation } from '@react-navigation/native';
 
 
 import { COLORS } from '../assets/constants';
+import { useEffect, useState } from 'react';
 
 
-const NavigationBar = ({ page }) => {
+const NavigationBar = ({ page, setPadding, padding }) => {
     const navigation = useNavigation()
+
+    const [isKeyboardOpen, setIsKeyboardOpen] = useState(false)
+
+    useEffect(() => {
+
+
+        const keyboardDidShowListener = Keyboard.addListener(
+            'keyboardDidShow', () => {
+                setIsKeyboardOpen(true)
+                if(padding) {
+                    setPadding(0)
+                }
+            }
+        )
+        const keyboardDidHideListener = Keyboard.addListener(
+            'keyboardDidHide', () => {
+                setIsKeyboardOpen(false)
+                if(padding) {
+                    setPadding(100)
+                }
+            }
+        )
+
+        return () => {
+            keyboardDidHideListener.remove();
+            keyboardDidShowListener.remove();
+        }
+
+    }, [])
+
+    if(isKeyboardOpen) {
+        return <></>
+    }
 
     return (
         <View
@@ -21,7 +55,7 @@ const NavigationBar = ({ page }) => {
                 width: "100%",
                 flexDirection: "row",
                 justifyContent: 'space-around',
-                padding: 7
+                padding: 5,
             }}
         >
             <TouchableOpacity 

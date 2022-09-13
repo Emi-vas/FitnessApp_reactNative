@@ -5,7 +5,8 @@ import { useFonts } from "expo-font";
 import SearchP1 from "./screens/SearchP1";
 import YourTraining from './screens/YourTraining'
 import SearchP2 from "./screens/SearchP2";
-
+import { useEffect, useState } from 'react';
+import { Keyboard } from "react-native";
 
 const Stack = createStackNavigator()
 
@@ -17,6 +18,8 @@ const theme = {
   }
 }
 
+
+
 export default function App() {
     const [loaded] = useFonts({
       InterBold: require("./assets/fonts/Inter-Bold.ttf"),
@@ -27,6 +30,8 @@ export default function App() {
       Amatic: require("./assets/fonts/AmaticSC-Regular.ttf"),
 
     })
+
+
 
     if(!loaded) return null
     return (
