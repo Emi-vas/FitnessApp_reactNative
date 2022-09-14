@@ -18,6 +18,8 @@ const SearchP2 = ({ route }) => {
         if(name != "" && name != "All") {
             const listFiltred = Data.filter((item) => item.bodyPart.includes(name.toLowerCase()))
             setListExercises(listFiltred)
+        } else {
+            setListExercises(Data)
         }
     }, [])
 
