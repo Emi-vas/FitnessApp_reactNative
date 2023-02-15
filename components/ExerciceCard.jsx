@@ -12,7 +12,7 @@ const ExerciceCard = ({ data, goToTopPage }) => {
                 flexDirection: 'row',
                 marginVertical: 7,
                 backgroundColor: "white",
-                height: 200,
+                height: 250,
                 alignItems: 'center'
             }}
         >
